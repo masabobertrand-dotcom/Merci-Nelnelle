@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Nelnelle | Cuisine Exquise à Montréal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #c62828;
+            --primary-dark: #8e0000;
+            --primary-light: #ff5f52;
+            --secondary: #ff9800;
+            --accent: #4caf50;
+            --gold: #ffd700;
+            --dark: #2c2c2c;
+            --light: #f5f5f5;
+            --white: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Arrière-plan animé */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            bottom: 10%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, var(--gold), var(--primary));
+            top: 20%;
+            right: 20%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        /* Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .header-cta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .reservation-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.3);
+        }
+
+        .reservation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.4);
+        }
+
+        .phone-number {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .phone-number i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+        }
+
+        /* À propos */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-category {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .menu-category:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .category-title h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .category-title span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .item-info h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .item-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            white-space: nowrap;
+        }
+
+        /* Horaires */
+        .hours-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hours-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .current-status {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--accent);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+
+        .status-indicator.closed {
+            background: var(--primary);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .day-schedule {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .day-schedule:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .day-schedule.today {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+        }
+
+        .day-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .day-hours {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .day-schedule.today .day-hours {
+            color: white;
+        }
+
+        /* Avis */
+        .reviews-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .rating-summary {
+            text-align: center;
+            margin-bottom: 50px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .rating-score {
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .rating-stars {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .rating-count {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .reviews-slider {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .review-card {
+            flex: 0 0 100%;
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin: 0 15px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-info h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .review-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .review-rating {
+            color: var(--gold);
+        }
+
+        .review-text {
+            color: var(--text);
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Contact & Réservation */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: var(--text-light);
+        }
+
+        .reservation-form {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #444;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 60px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Spécifique pour les avis */
+        .review-quote {
+            font-size: 2rem;
+            color: var(--primary-light);
+            opacity: 0.5;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Arrière-plan animé -->
+    <div class="background-animation">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">N</div>
+                <div class="logo-text">Nel<span>nelle</span></div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#accueil" class="nav-link active">Accueil</a>
+                <a href="#apropos" class="nav-link">À Propos</a>
+                <a href="#menu" class="nav-link">Menu</a>
+                <a href="#horaires" class="nav-link">Horaires</a>
+                <a href="#avis" class="nav-link">Avis</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="header-cta">
+                <div class="phone-number">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (514) XXX-XXXX</span>
+                </div>
+                <a href="#reservation" class="reservation-btn">
+                    <i class="fas fa-calendar-check"></i> Réserver
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content reveal">
+            <h1 class="hero-title">Découvrez l'Excellence Culinaire</h1>
+            <p class="hero-subtitle">Une expérience gastronomique unique mariant tradition et innovation au cœur de Montréal</p>
+            
+            <div class="hero-cta">
+                <a href="#menu" class="btn btn-primary">
+                    <i class="fas fa-utensils"></i> Voir le Menu
+                </a>
+                <a href="#reservation" class="btn btn-secondary">
+                    <i class="fas fa-clock"></i> Réserver une Table
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- À Propos -->
+    <section class="section" id="apropos">
+        <div class="section-title reveal">
+            <h2>Notre Histoire</h2>
+            <p>Depuis plus de 20 ans, nous partageons notre passion pour la cuisine authentique</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-image reveal">
+                <div class="image-placeholder">
+                    <i class="fas fa-utensils"></i>
+                </div>
+            </div>
+            
+            <div class="about-text reveal">
+                <h3>Une Tradition Culinaire d'Excellence</h3>
+                <p>Fondé en 2003, le restaurant Nelnelle est devenu une institution culinaire à Montréal. Notre chef, formé dans les plus grandes écoles de cuisine de France, apporte son expertise et sa créativité à chaque plat.</p>
+                <p>Nous nous approvisionnons exclusivement auprès de producteurs locaux pour garantir la fraîcheur et la qualité de nos ingrédients. Chaque plat est préparé avec passion et attention aux détails.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div>
+                            <h4>Ingrédients Frais</h4>
+                            <p>Produits locaux de saison</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div>
+                            <h4>Chef Certifié</h4>
+                            <p>Diplômé des Arts Culinaires</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-wine-glass-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Cave à Vin</h4>
+                            <p>Sélection internationale</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div>
+                            <h4>Passion</h4>
+                            <p>Dans chaque assiette</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <section class="section" id="menu" style="background: #f9f9f9;">
+        <div class="section-title reveal">
+            <h2>Notre Menu</h2>
+            <p>Découvrez nos spécialités soigneusement élaborées par notre chef</p>
+        </div>
+        
+        <div class="menu-grid">
+            <!-- Entrées -->
+            <div class="menu-category reveal">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="category-title">
+                        <h3>Entrées</h3>
+                        <span>Pour commencer en beauté</span>
+                    </div>
+                </div>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Foie Gras Maison</h4>
+                            <p>Toast brioché, confiture de figues</p>
+                        </div>
+                        <div class="item-price">24$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Salade Nelnelle</h4>
+                            <p>Mesclun, noix, fromage de chèvre, vinaigrette balsamique</p>
+                        </div>
+                        <div class="item-price">18$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Escargots de Bourgogne</h4>
+                            <p>Beurre persillé, ail frais</p>
+                        </div>
+                        <div class="item-price">22$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Soupe du Jour</h4>
+                            <p>Préparée selon le marché</p>
+                        </div>
+                        <div class="item-price">14$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Plats Principaux -->
+            <div class="menu-category reveal">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <div class="category-title">
+                        <h3>Plats Principaux</h3>
+                        <span>Nos spécialités</span>
+                    </div>
+                </div>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Filet Mignon</h4>
+                            <p>Sauce au poivre vert, gratin dauphinois</p>
+                        </div>
+                        <div class="item-price">42$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Saumon Sauvage</h4>
+                            <p>Risotto aux asperges, beurre citronné</p>
+                        </div>
+                        <div class="item-price">36$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Canard Confit</h4>
+                            <p>Pommes sautées, sauce à l'orange</p>
+                        </div>
+                        <div class="item-price">38$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Ris de Veau</h4>
+                            <p>Morilles, purée de céleri</p>
+                        </div>
+                        <div class="item-price">45$</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desserts -->
+            <div class="menu-category reveal">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <div class="category-title">
+                        <h3>Desserts</h3>
+                        <span>Pour terminer en douceur</span>
+                    </div>
+                </div>
+                
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Soufflé au Chocolat</h4>
+                            <p>Glace vanille maison</p>
+                        </div>
+                        <div class="item-price">16$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Tarte Tatin</h4>
+                            <p>Pommes caramélisées, crème fraîche</p>
+                        </div>
+                        <div class="item-price">14$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Assiette de Fromages</h4>
+                            <p>Sélection du fromager</p>
+                        </div>
+                        <div class="item-price">18$</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <h4>Crème Brûlée</h4>
+                            <p>Vanille de Madagascar</p>
+                        </div>
+                        <div class="item-price">12$</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horaires -->
+    <section class="section" id="horaires">
+        <div class="section-title reveal">
+            <h2>Nos Horaires</h2>
+            <p>Nous vous accueillons chaleureusement tout au long de la semaine</p>
+        </div>
+        
+        <div class="hours-container reveal">
+            <div class="current-status">
+                <h3>Statut actuel: <span class="status-indicator">OUVERT</span></h3>
+                <p>Nous fermons à 21:00 aujourd'hui</p>
+            </div>
+            
+            <div class="hours-grid">
+                <div class="day-schedule">
+                    <span class="day-name">Lundi</span>
+                    <span class="day-hours">Fermé</span>
+                </div>
+                <div class="day-schedule today">
+                    <span class="day-name">Mardi</span>
+                    <span class="day-hours">9:30 - 20:00</span>
+                </div>
+                <div class="day-schedule">
+                    <span class="day-name">Mercredi</span>
+                    <span class="day-hours">9:30 - 21:00</span>
+                </div>
+                <div class="day-schedule">
+                    <span class="day-name">Jeudi</span>
+                    <span class="day-hours">9:30 - 21:00</span>
+                </div>
+                <div class="day-schedule">
+                    <span class="day-name">Vendredi</span>
+                    <span class="day-hours">9:30 - 21:00</span>
+                </div>
+                <div class="day-schedule">
+                    <span class="day-name">Samedi</span>
+                    <span class="day-hours">9:30 - 21:00</span>
+                </div>
+                <div class="day-schedule">
+                    <span class="day-name">Dimanche</span>
+                    <span class="day-hours">9:30 - 20:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avis -->
+    <section class="section" id="avis" style="background: #f9f9f9;">
+        <div class="section-title reveal">
+            <h2>Ce Que Disent Nos Clients</h2>
+            <p>Découvrez les expériences de nos clients satisfaits</p>
+        </div>
+        
+        <div class="reviews-container">
+            <div class="rating-summary reveal">
+                <div class="rating-score">4.8</div>
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div class="rating-count">Basé sur 97 avis vérifiés</div>
+            </div>
+            
+            <div class="reviews-slider reveal">
+                <div class="reviews-track" id="reviews-track">
+                    <!-- Avis 1 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <h4>David Hof</h4>
+                                <div class="review-date">Il y a 2 semaines</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            <div class="review-quote">"</div>
+                            <p>Reasonable prices, terrific food, great service. Une expérience exceptionnelle du début à la fin. Le filet mignon était parfaitement cuit et le service impeccable. Nous reviendrons certainement !</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Avis 2 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <h4>Linda Posada</h4>
+                                <div class="review-date">Il y a 1 mois</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            <div class="review-quote">"</div>
+                            <p>Je voulais goûter au riz collant et au riz blanc sauce pois. Non seulement j'ai trouvé ce que je cherchais, mais j'ai découvert bien plus ! Les plats sont authentiques et délicieux. Un vrai voyage culinaire.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Avis 3 -->
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <h4>Eddy Christmas</h4>
+                                <div class="review-date">Il y a 3 semaines</div>
+                            </div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            <div class="review-quote">"</div>
+                            <p>Accueil chaleureux, la bouffe est excellente et le service est rapide. L'ambiance est parfaite pour un dîner romantique ou une sortie entre amis. Le canard confit est à tomber par terre !</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-nav" id="slider-nav">
+                    <div class="slider-dot active" data-index="0"></div>
+                    <div class="slider-dot" data-index="1"></div>
+                    <div class="slider-dot" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Réservation -->
+    <section class="section" id="contact">
+        <div class="section-title reveal">
+            <h2>Réservez Votre Table</h2>
+            <p>Planifiez votre visite dans notre restaurant</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-info reveal">
+                <h3>Nos Coordonnées</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Adresse</h4>
+                        <p>123 Avenue Gourmande<br>Montréal, QC H3A 0G4</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Téléphone</h4>
+                        <p>+1 (514) XXX-XXXX</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Email</h4>
+                        <p>reservations@nelnelle.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h4>Heures d'Ouverture</h4>
+                        <p>Mardi à Dimanche<br>9:30 - 21:00</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-tripadvisor"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="reservation-form reveal" id="reservation">
+                <h3>Formulaire de Réservation</h3>
+                
+                <form id="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nom complet *</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Téléphone *</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date *</label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time">Heure *</label>
+                            <input type="time" id="time" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guests">Nombre de personnes *</label>
+                            <select id="guests" class="form-control" required>
+                                <option value="">Sélectionnez</option>
+                                <option value="1">1 personne</option>
+                                <option value="2">2 personnes</option>
+                                <option value="3">3 personnes</option>
+                                <option value="4">4 personnes</option>
+                                <option value="5">5 personnes</option>
+                                <option value="6">6 personnes</option>
+                                <option value="7">7 personnes</option>
+                                <option value="8">8+ personnes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="occasion">Occasion spéciale</label>
+                            <select id="occasion" class="form-control">
+                                <option value="">Aucune occasion spéciale</option>
+                                <option value="anniversary">Anniversaire</option>
+                                <option value="birthday">Fête d'anniversaire</option>
+                                <option value="business">Dîner d'affaires</option>
+                                <option value="date">Rendez-vous romantique</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message supplémentaire</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Allergies, préférences particulières..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Confirmer la Réservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Restaurant Nelnelle</h4>
+                <p>Une expérience gastronomique exceptionnelle au cœur de Montréal. Cuisine raffinée, service impeccable et ambiance chaleureuse.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Liens Rapides</h4>
+                <ul class="footer-links">
+                    <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="#apropos"><i class="fas fa-chevron-right"></i> À Propos</a></li>
+                    <li><a href="#menu"><i class="fas fa-chevron-right"></i> Menu</a></li>
+                    <li><a href="#horaires"><i class="fas fa-chevron-right"></i> Horaires</a></li>
+                    <li><a href="#avis"><i class="fas fa-chevron-right"></i> Avis</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Avenue Gourmande, Montréal</a></li>
+                    <li><a href="tel:+1514XXX"><i class="fas fa-phone"></i> +1 (514) XXX-XXXX</a></li>
+                    <li><a href="mailto:reservations@nelnelle.com"><i class="fas fa-envelope"></i> reservations@nelnelle.com</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Newsletter</h4>
+                <p>Inscrivez-vous pour recevoir nos offres spéciales et les nouveautés du menu.</p>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Votre email" style="margin-top: 15px;">
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Restaurant Nelnelle. Tous droits réservés. | Conçu par <span style="color: var(--primary);">Websy</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation smooth scroll
+            setupSmoothScroll();
+            
+            // Slider des avis
+            setupReviewsSlider();
+            
+            // Animations au scroll
+            setupScrollAnimations();
+            
+            // Formulaire de réservation
+            setupBookingForm();
+            
+            // Mise à jour du statut d'ouverture
+            updateOpeningStatus();
+            
+            // Navigation active
+            updateActiveNav();
+        });
+
+        // Navigation smooth scroll
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Slider des avis
+        function setupReviewsSlider() {
+            const track = document.getElementById('reviews-track');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                const slideWidth = track.children[0].offsetWidth;
+                track.style.transform = `translateX(-${index * slideWidth}px)`;
+                
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
+            
+            // Auto-slide
+            setInterval(() => {
+                let nextSlide = currentSlide + 1;
+                if(nextSlide >= dots.length) nextSlide = 0;
+                showSlide(nextSlide);
+            }, 5000);
+        }
+
+        // Animations au scroll
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.reveal').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Formulaire de réservation
+        function setupBookingForm() {
+            const form = document.getElementById('booking-form');
+            
+            // Date min = aujourd'hui
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validation simple
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const guests = document.getElementById('guests').value;
+                
+                if(!name || !phone || !date || !time || !guests) {
+                    alert('Veuillez remplir tous les champs obligatoires (*)');
+                    return;
+                }
+                
+                // Simulation d'envoi
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Réservation Confirmée!';
+                    submitBtn.style.background = 'linear-gradient(135deg, #4caf50, #2e7d32)';
+                    
+                    // Réinitialiser le formulaire
+                    setTimeout(() => {
+                        form.reset();
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))';
+                        
+                        // Message de confirmation
+                        alert(`Merci ${name} ! Votre réservation pour ${guests} personnes le ${date} à ${time} a été confirmée. Nous vous attendons avec impatience !`);
+                    }, 2000);
+                }, 1500);
+            });
+        }
+
+        // Mise à jour du statut d'ouverture
+        function updateOpeningStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = dimanche, 1 = lundi, etc.
+            const hour = now.getHours();
+            const minutes = now.getMinutes();
+            const currentTime = hour + minutes / 60;
+            
+            const schedule = {
+                0: { open: 9.5, close: 20 },  // Dimanche: 9:30 - 20:00
+                1: { open: 9.5, close: 20 },  // Lundi: 9:30 - 20:00
+                2: { open: 9.5, close: 21 },  // Mardi: 9:30 - 21:00
+                3: { open: 9.5, close: 21 },  // Mercredi: 9:30 - 21:00
+                4: { open: 9.5, close: 21 },  // Jeudi: 9:30 - 21:00
+                5: { open: 9.5, close: 21 },  // Vendredi: 9:30 - 21:00
+                6: { open: 9.5, close: 21 }   // Samedi: 9:30 - 21:00
+            };
+            
+            const todaySchedule = schedule[day];
+            const statusIndicator = document.querySelector('.status-indicator');
+            const statusText = document.querySelector('.current-status p');
+            
+            if(!todaySchedule) {
+                statusIndicator.textContent = 'FERMÉ';
+                statusIndicator.classList.add('closed');
+                statusText.textContent = 'Nous sommes fermés aujourd\'hui';
+                return;
+            }
+            
+            if(currentTime >= todaySchedule.open && currentTime < todaySchedule.close) {
+                statusIndicator.textContent = 'OUVERT';
+                statusIndicator.classList.remove('closed');
+                
+                // Calcul du temps restant
+                const remainingHours = Math.floor(todaySchedule.close - currentTime);
+                const remainingMinutes = Math.round((todaySchedule.close - currentTime - remainingHours) * 60);
+                statusText.textContent = `Nous fermons dans ${remainingHours}h${remainingMinutes}min`;
+            } else {
+                statusIndicator.textContent = 'FERMÉ';
+                statusIndicator.classList.add('closed');
+                
+                if(currentTime < todaySchedule.open) {
+                    const openingHours = Math.floor(todaySchedule.open);
+                    const openingMinutes = Math.round((todaySchedule.open - openingHours) * 60);
+                    statusText.textContent = `Réouverture à ${openingHours}:${openingMinutes.toString().padStart(2, '0')}`;
+                } else {
+                    statusText.textContent = 'Réouverture demain';
+                }
+            }
+            
+            // Mise en évidence du jour actuel
+            const dayElements = document.querySelectorAll('.day-schedule');
+            const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            const todayName = dayNames[day];
+            
+            dayElements.forEach(element => {
+                element.classList.remove('today');
+                if(element.querySelector('.day-name').textContent === todayName) {
+                    element.classList.add('today');
+                }
+            });
+        }
+
+        // Navigation active
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollPosition = window.scrollY + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if(scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.site-header');
+            if(window.scrollY > 100) {
+                header.style.padding = '10px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '15px 0';
+                header.style.boxShadow = 'var(--shadow)';
+            }
+        });
+    </script>
+</body>
+</html>
